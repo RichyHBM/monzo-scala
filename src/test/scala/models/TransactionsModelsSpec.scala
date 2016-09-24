@@ -2,149 +2,8 @@ package models
 
 import monzo_scala.models._
 import org.specs2.mutable.Specification
-import play.api.libs.json.Json
 
 class TransactionsModelsSpec extends Specification {
-  val singleTransactionJson = Json.stringify(Json.parse(
-    """{
-      |    "transaction": {
-      |        "account_balance": 13013,
-      |        "amount": -510,
-      |        "created": "2015-08-22T12:20:18Z",
-      |        "currency": "GBP",
-      |        "description": "THE DE BEAUVOIR DELI C LONDON        GBR",
-      |        "id": "tx_00008zIcpb1TB4yeIFXMzx",
-      |        "merchant": {
-      |            "address": {
-      |                "address": "98 Southgate Road",
-      |                "city": "London",
-      |                "country": "GB",
-      |                "latitude": 51.54151,
-      |                "longitude": -0.08482400000002599,
-      |                "postcode": "N1 3JD",
-      |                "region": "Greater London"
-      |            },
-      |            "created": "2015-08-22T12:20:18Z",
-      |            "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |            "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |            "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |            "emoji": "🍞",
-      |            "name": "The De Beauvoir Deli Co.",
-      |            "category": "eating_out"
-      |        },
-      |        "metadata": {},
-      |        "notes": "Salmon sandwich 🍞",
-      |        "is_load": false,
-      |        "settled": "2015-08-23T12:20:18Z",
-      |        "category": "eating_out"
-      |    }
-      |}""".stripMargin))
-
-  val listTransactionsJson = Json.stringify(Json.parse(
-    """{
-      |    "transactions": [
-      |        {
-      |            "account_balance": 13013,
-      |            "amount": -510,
-      |            "created": "2015-08-22T12:20:18Z",
-      |            "currency": "GBP",
-      |            "description": "THE DE BEAUVOIR DELI C LONDON        GBR",
-      |            "id": "tx_00008zIcpb1TB4yeIFXMzx",
-      |            "merchant": {
-      |                "address": {
-      |                    "address": "98 Southgate Road",
-      |                    "city": "London",
-      |                    "country": "GB",
-      |                    "latitude": 51.54151,
-      |                    "longitude": -0.08482400000002599,
-      |                    "postcode": "N1 3JD",
-      |                    "region": "Greater London"
-      |                },
-      |                "created": "2015-08-22T12:20:18Z",
-      |                "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |                "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |                "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |                "emoji": "🍞",
-      |                "name": "The De Beauvoir Deli Co.",
-      |                "category": "eating_out"
-      |            },
-      |            "metadata": {},
-      |            "notes": "Salmon sandwich 🍞",
-      |            "is_load": false,
-      |            "settled": "2015-08-23T12:20:18Z",
-      |            "category": "eating_out"
-      |        },
-      |        {
-      |            "account_balance": 12334,
-      |            "amount": -679,
-      |            "created": "2015-08-23T16:15:03Z",
-      |            "currency": "GBP",
-      |            "description": "VUE BSL LTD            ISLINGTON     GBR",
-      |            "id": "tx_00008zL2INM3xZ41THuRF3",
-      |            "merchant": {
-      |                "address": {
-      |                    "address": "98 Southgate Road",
-      |                    "city": "London",
-      |                    "country": "GB",
-      |                    "latitude": 51.54151,
-      |                    "longitude": -0.08482400000002599,
-      |                    "postcode": "N1 3JD",
-      |                    "region": "Greater London"
-      |                },
-      |                "created": "2015-08-22T12:20:18Z",
-      |                "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |                "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |                "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |                "emoji": "🍞",
-      |                "name": "The De Beauvoir Deli Co.",
-      |                "category": "eating_out"
-      |            },
-      |            "metadata": {},
-      |            "notes": "",
-      |            "is_load": false,
-      |            "settled": "2015-08-24T16:15:03Z",
-      |            "category": "eating_out"
-      |        }
-      |    ]
-      |}""".stripMargin))
-
-  val annotateTransactionJson = Json.stringify(Json.parse(
-    """{
-      |    "transaction": {
-      |        "account_balance": 12334,
-      |        "amount": -679,
-      |        "created": "2015-08-23T16:15:03Z",
-      |        "currency": "GBP",
-      |        "description": "VUE BSL LTD            ISLINGTON     GBR",
-      |        "id": "tx_00008zL2INM3xZ41THuRF3",
-      |        "merchant": {
-      |                "address": {
-      |                    "address": "98 Southgate Road",
-      |                    "city": "London",
-      |                    "country": "GB",
-      |                    "latitude": 51.54151,
-      |                    "longitude": -0.08482400000002599,
-      |                    "postcode": "N1 3JD",
-      |                    "region": "Greater London"
-      |                },
-      |                "created": "2015-08-22T12:20:18Z",
-      |                "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |                "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |                "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |                "emoji": "🍞",
-      |                "name": "The De Beauvoir Deli Co.",
-      |                "category": "eating_out"
-      |            },
-      |        "metadata": {
-      |            "foo": "bar"
-      |        },
-      |        "notes": "",
-      |        "is_load": false,
-      |        "settled": "2015-08-24T16:15:03Z",
-      |        "category": "eating_out"
-      |    }
-      |}""".stripMargin))
-
   val merchant = Merchant(
     Address(
       "98 Southgate Road",
@@ -164,7 +23,7 @@ class TransactionsModelsSpec extends Specification {
 
   "SingleTransaction Model" should {
     "Construct from json" in {
-      val singleTransaction = SingleTransaction.fromJson(singleTransactionJson)
+      val singleTransaction = SingleTransaction.fromJson(ExampleJson.singleTransactionJson)
 
       singleTransaction mustNotEqual null
       singleTransaction.transaction mustNotEqual null
@@ -218,13 +77,13 @@ class TransactionsModelsSpec extends Specification {
 
       val singleTransaction = SingleTransaction(transaction)
 
-      singleTransaction.toJson() must equalTo(singleTransactionJson)
+      singleTransaction.toJson() must equalTo(ExampleJson.singleTransactionJson)
     }
   }
 
   "ListTransaction Model" should {
     "Construct from json" in {
-      val listTransactions = ListTransactions.fromJson(listTransactionsJson)
+      val listTransactions = ListTransactions.fromJson(ExampleJson.listTransactionsJson)
 
       listTransactions mustNotEqual null
       listTransactions.transactions.length must equalTo(2)
@@ -286,13 +145,13 @@ class TransactionsModelsSpec extends Specification {
             "2015-08-24T16:15:03Z",
             "eating_out")))
 
-      listTransactions.toJson() must equalTo(listTransactionsJson)
+      listTransactions.toJson() must equalTo(ExampleJson.listTransactionsJson)
     }
   }
 
   "AnnotateTransaction Model" should {
     "Construct from json" in {
-      val annotateTransaction = AnnotateTransactions.fromJson(annotateTransactionJson)
+      val annotateTransaction = AnnotateTransactions.fromJson(ExampleJson.annotateTransactionJson)
 
       annotateTransaction mustNotEqual null
       annotateTransaction.transaction mustNotEqual null
@@ -327,7 +186,7 @@ class TransactionsModelsSpec extends Specification {
         "eating_out"
       ))
 
-      annotateTransaction.toJson() must equalTo(annotateTransactionJson)
+      annotateTransaction.toJson() must equalTo(ExampleJson.annotateTransactionJson)
     }
   }
 }

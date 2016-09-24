@@ -2,14 +2,11 @@ package models
 
 import monzo_scala.models._
 import org.specs2.mutable.Specification
-import play.api.libs.json.Json
 
 class FeedItemsModelsSpec extends Specification {
-  val feedItemsJson = Json.stringify(Json.parse("""{}""".stripMargin))
-
   "FeedItems Model" should {
     "Construct from json" in {
-      val feedItems = FeedItems.fromJson(feedItemsJson)
+      val feedItems = FeedItems.fromJson(ExampleJson.feedItemsJson)
 
       feedItems mustNotEqual null
     }
@@ -17,7 +14,7 @@ class FeedItemsModelsSpec extends Specification {
     "Convert to json" in {
       val feedItems = FeedItems()
 
-      feedItems.toJson() must equalTo(feedItemsJson)
+      feedItems.toJson() must equalTo(ExampleJson.feedItemsJson)
     }
   }
 }

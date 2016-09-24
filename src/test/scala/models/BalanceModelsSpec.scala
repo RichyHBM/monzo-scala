@@ -2,19 +2,11 @@ package models
 
 import monzo_scala.models._
 import org.specs2.mutable.Specification
-import play.api.libs.json.Json
 
 class BalanceModelsSpec extends Specification {
-  val balanceJson = Json.stringify(Json.parse(
-    """{
-      |    "balance": 5000,
-      |    "currency": "GBP",
-      |    "spend_today": 0
-      |}""".stripMargin))
-
   "Balance Model" should {
     "Construct from json" in {
-      val balance = Balance.fromJson(balanceJson)
+      val balance = Balance.fromJson(ExampleJson.balanceJson)
 
       balance mustNotEqual null
       balance.balance must equalTo(5000)
@@ -25,7 +17,7 @@ class BalanceModelsSpec extends Specification {
     "Convert to json" in {
       val balance = Balance(5000, "GBP", 0)
 
-      balance.toJson() must equalTo(balanceJson)
+      balance.toJson() must equalTo(ExampleJson.balanceJson)
     }
   }
 }

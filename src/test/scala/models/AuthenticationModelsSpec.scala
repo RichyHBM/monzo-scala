@@ -2,29 +2,11 @@ package models
 
 import monzo_scala.models._
 import org.specs2.mutable.Specification
-import play.api.libs.json.Json
 
 class AuthenticationModelsSpec extends Specification {
-  val accessJson = Json.stringify(Json.parse(
-    """{
-      |    "access_token": "access_token",
-      |    "client_id": "client_id",
-      |    "expires_in": 21600,
-      |    "refresh_token": "refresh_token",
-      |    "token_type": "Bearer",
-      |    "user_id": "user_id"
-      |}""".stripMargin))
-
-  val whoAmIJson = Json.stringify(Json.parse(
-    """{
-      |    "authenticated": true,
-      |    "client_id": "client_id",
-      |    "user_id": "user_id"
-      |}""".stripMargin))
-
   "Access Model" should {
     "Construct from json" in {
-      val access = Access.fromJson(accessJson)
+      val access = Access.fromJson(ExampleJson.accessJson)
 
       access mustNotEqual null
       access.accessToken must equalTo("access_token")
@@ -38,13 +20,13 @@ class AuthenticationModelsSpec extends Specification {
     "Convert to json" in {
       val access = Access("access_token", "client_id", 21600, "refresh_token", "Bearer", "user_id")
 
-      access.toJson() must equalTo(accessJson)
+      access.toJson() must equalTo(ExampleJson.accessJson)
     }
   }
 
   "WhoAmI Model" should {
     "Construct from json" in {
-      val whoAmI = WhoAmI.fromJson(whoAmIJson)
+      val whoAmI = WhoAmI.fromJson(ExampleJson.whoAmIJson)
 
       whoAmI mustNotEqual null
       whoAmI.authenticated must equalTo(true)
@@ -54,7 +36,7 @@ class AuthenticationModelsSpec extends Specification {
 
     "Convert to json" in {
       val whoAmI = WhoAmI(true, "client_id", "user_id")
-      whoAmI.toJson() must equalTo(whoAmIJson)
+      whoAmI.toJson() must equalTo(ExampleJson.whoAmIJson)
     }
   }
 }

@@ -2,23 +2,11 @@ package models
 
 import monzo_scala.models._
 import org.specs2.mutable.Specification
-import play.api.libs.json.Json
 
 class AccountsModelsSpec extends Specification {
-  val accountsJson = Json.stringify(Json.parse(
-    """{
-      |    "accounts": [
-      |        {
-      |            "id": "acc_00009237aqC8c5umZmrRdh",
-      |            "description": "Peter Pan's Account",
-      |            "created": "2015-11-13T12:17:42Z"
-      |        }
-      |    ]
-      |}""".stripMargin))
-
   "AccountsList Model" should {
     "Construct from json" in {
-      val accounts = AccountsList.fromJson(accountsJson)
+      val accounts = AccountsList.fromJson(ExampleJson.accountsJson)
 
       accounts mustNotEqual null
       accounts.accounts.length must equalTo(1)
@@ -35,7 +23,7 @@ class AccountsModelsSpec extends Specification {
             "Peter Pan's Account",
             "2015-11-13T12:17:42Z")))
 
-      accounts.toJson() must equalTo(accountsJson)
+      accounts.toJson() must equalTo(ExampleJson.accountsJson)
     }
   }
 }
