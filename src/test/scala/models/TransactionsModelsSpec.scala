@@ -1,6 +1,6 @@
 package models
 
-import monzo_scala.models._
+import monzo_scala.models.transactions._
 import org.specs2.mutable.Specification
 
 class TransactionsModelsSpec extends Specification {
@@ -83,40 +83,40 @@ class TransactionsModelsSpec extends Specification {
 
   "ListTransaction Model" should {
     "Construct from json" in {
-      val listTransactions = ListTransactions.fromJson(ExampleJson.listTransactionsJson)
+      val transactionList = TransactionList.fromJson(ExampleJson.transactionListJson)
 
-      listTransactions mustNotEqual null
-      listTransactions.transactions.length must equalTo(2)
+      transactionList mustNotEqual null
+      transactionList.transactions.length must equalTo(2)
 
-      listTransactions.transactions.head.accountBalance must equalTo(13013)
-      listTransactions.transactions.head.amount must equalTo(-510)
-      listTransactions.transactions.head.created must equalTo("2015-08-22T12:20:18Z")
-      listTransactions.transactions.head.currency must equalTo("GBP")
-      listTransactions.transactions.head.description must equalTo("THE DE BEAUVOIR DELI C LONDON        GBR")
-      listTransactions.transactions.head.id must equalTo("tx_00008zIcpb1TB4yeIFXMzx")
-      listTransactions.transactions.head.merchant must equalTo(merchant)
-      listTransactions.transactions.head.metadata must equalTo(Map[String, String]())
-      listTransactions.transactions.head.notes must equalTo("Salmon sandwich 🍞")
-      listTransactions.transactions.head.isLoad must equalTo(false)
-      listTransactions.transactions.head.settled must equalTo("2015-08-23T12:20:18Z")
-      listTransactions.transactions.head.category must equalTo("eating_out")
+      transactionList.transactions.head.accountBalance must equalTo(13013)
+      transactionList.transactions.head.amount must equalTo(-510)
+      transactionList.transactions.head.created must equalTo("2015-08-22T12:20:18Z")
+      transactionList.transactions.head.currency must equalTo("GBP")
+      transactionList.transactions.head.description must equalTo("THE DE BEAUVOIR DELI C LONDON        GBR")
+      transactionList.transactions.head.id must equalTo("tx_00008zIcpb1TB4yeIFXMzx")
+      transactionList.transactions.head.merchant must equalTo(merchant)
+      transactionList.transactions.head.metadata must equalTo(Map[String, String]())
+      transactionList.transactions.head.notes must equalTo("Salmon sandwich 🍞")
+      transactionList.transactions.head.isLoad must equalTo(false)
+      transactionList.transactions.head.settled must equalTo("2015-08-23T12:20:18Z")
+      transactionList.transactions.head.category must equalTo("eating_out")
 
-      listTransactions.transactions(1).accountBalance must equalTo(12334)
-      listTransactions.transactions(1).amount must equalTo(-679)
-      listTransactions.transactions(1).created must equalTo("2015-08-23T16:15:03Z")
-      listTransactions.transactions(1).currency must equalTo("GBP")
-      listTransactions.transactions(1).description must equalTo("VUE BSL LTD            ISLINGTON     GBR")
-      listTransactions.transactions(1).id must equalTo("tx_00008zL2INM3xZ41THuRF3")
-      listTransactions.transactions(1).merchant must equalTo(merchant)
-      listTransactions.transactions(1).metadata must equalTo(Map[String, String]())
-      listTransactions.transactions(1).notes must equalTo("")
-      listTransactions.transactions(1).isLoad must equalTo(false)
-      listTransactions.transactions(1).settled must equalTo("2015-08-24T16:15:03Z")
-      listTransactions.transactions(1).category must equalTo("eating_out")
+      transactionList.transactions(1).accountBalance must equalTo(12334)
+      transactionList.transactions(1).amount must equalTo(-679)
+      transactionList.transactions(1).created must equalTo("2015-08-23T16:15:03Z")
+      transactionList.transactions(1).currency must equalTo("GBP")
+      transactionList.transactions(1).description must equalTo("VUE BSL LTD            ISLINGTON     GBR")
+      transactionList.transactions(1).id must equalTo("tx_00008zL2INM3xZ41THuRF3")
+      transactionList.transactions(1).merchant must equalTo(merchant)
+      transactionList.transactions(1).metadata must equalTo(Map[String, String]())
+      transactionList.transactions(1).notes must equalTo("")
+      transactionList.transactions(1).isLoad must equalTo(false)
+      transactionList.transactions(1).settled must equalTo("2015-08-24T16:15:03Z")
+      transactionList.transactions(1).category must equalTo("eating_out")
     }
 
     "Convert to json" in {
-      val listTransactions = ListTransactions(
+      val transactionList = TransactionList(
         Seq(
           ExpandedTransaction(
             13013,
@@ -145,13 +145,13 @@ class TransactionsModelsSpec extends Specification {
             "2015-08-24T16:15:03Z",
             "eating_out")))
 
-      listTransactions.toJson() must equalTo(ExampleJson.listTransactionsJson)
+      transactionList.toJson() must equalTo(ExampleJson.transactionListJson)
     }
   }
 
   "AnnotateTransaction Model" should {
     "Construct from json" in {
-      val annotateTransaction = AnnotateTransactions.fromJson(ExampleJson.annotateTransactionJson)
+      val annotateTransaction = AnnotateTransaction.fromJson(ExampleJson.annotateTransactionJson)
 
       annotateTransaction mustNotEqual null
       annotateTransaction.transaction mustNotEqual null
@@ -171,7 +171,7 @@ class TransactionsModelsSpec extends Specification {
     }
 
     "Convert to json" in {
-      val annotateTransaction = AnnotateTransactions(ExpandedTransaction(
+      val annotateTransaction = AnnotateTransaction(ExpandedTransaction(
         12334,
         -679,
         "2015-08-23T16:15:03Z",

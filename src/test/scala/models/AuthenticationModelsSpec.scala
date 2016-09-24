@@ -1,6 +1,6 @@
 package models
 
-import monzo_scala.models._
+import monzo_scala.models.authentication._
 import org.specs2.mutable.Specification
 
 class AuthenticationModelsSpec extends Specification {

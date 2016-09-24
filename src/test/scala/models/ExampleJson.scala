@@ -58,7 +58,7 @@ object ExampleJson {
       |    "spend_today": 0
       |}""".stripMargin))
 
-  val feedItemsJson = Json.stringify(Json.parse("""{}""".stripMargin))
+  val feedJson = Json.stringify(Json.parse("""{}""".stripMargin))
 
   val singleTransactionJson = Json.stringify(Json.parse(
     """{
@@ -95,7 +95,7 @@ object ExampleJson {
       |    }
       |}""".stripMargin))
 
-  val listTransactionsJson = Json.stringify(Json.parse(
+  val transactionListJson = Json.stringify(Json.parse(
     """{
       |    "transactions": [
       |        {
@@ -209,7 +209,7 @@ object ExampleJson {
       |    }
       |}""".stripMargin))
 
-  val listWebhookJson = Json.stringify(Json.parse(
+  val webhookListJson = Json.stringify(Json.parse(
     """{
       |    "webhooks": [
       |        {

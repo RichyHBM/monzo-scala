@@ -1,12 +1,12 @@
 package models
 
-import monzo_scala.models._
+import monzo_scala.models.accounts._
 import org.specs2.mutable.Specification
 
 class AccountsModelsSpec extends Specification {
-  "AccountsList Model" should {
+  "AccountList Model" should {
     "Construct from json" in {
-      val accounts = AccountsList.fromJson(ExampleJson.accountsJson)
+      val accounts = AccountList.fromJson(ExampleJson.accountsJson)
 
       accounts mustNotEqual null
       accounts.accounts.length must equalTo(1)
@@ -16,7 +16,7 @@ class AccountsModelsSpec extends Specification {
     }
 
     "Convert to json" in {
-      val accounts = AccountsList(
+      val accounts = AccountList(
         Seq(
           Account(
             "acc_00009237aqC8c5umZmrRdh",

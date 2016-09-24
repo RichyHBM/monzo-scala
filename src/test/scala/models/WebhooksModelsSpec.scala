@@ -1,6 +1,7 @@
 package models
 
-import monzo_scala.models._
+import monzo_scala.models.transactions.{Address, Merchant}
+import monzo_scala.models.webhooks._
 import org.specs2.mutable.Specification
 
 class WebhooksModelsSpec extends Specification {
@@ -24,27 +25,27 @@ class WebhooksModelsSpec extends Specification {
 
   "ListWebhooks Model" should {
     "Construct from json" in {
-      val listWebhook = ListWebhooks.fromJson(ExampleJson.listWebhookJson)
+      val webhookList = WebhookList.fromJson(ExampleJson.webhookListJson)
 
-      listWebhook mustNotEqual null
-      listWebhook.webhooks.length must equalTo(2)
+      webhookList mustNotEqual null
+      webhookList.webhooks.length must equalTo(2)
 
-      listWebhook.webhooks.head.accountId must equalTo("acc_000091yf79yMwNaZHhHGzp")
-      listWebhook.webhooks.head.id must equalTo("webhook_000091yhhOmrXQaVZ1Irsv")
-      listWebhook.webhooks.head.url must equalTo("http://example.com/callback")
+      webhookList.webhooks.head.accountId must equalTo("acc_000091yf79yMwNaZHhHGzp")
+      webhookList.webhooks.head.id must equalTo("webhook_000091yhhOmrXQaVZ1Irsv")
+      webhookList.webhooks.head.url must equalTo("http://example.com/callback")
 
-      listWebhook.webhooks(1).accountId must equalTo("acc_000091yf79yMwNaZHhHGzp")
-      listWebhook.webhooks(1).id must equalTo("webhook_000091yhhzvJSxLYGAceC9")
-      listWebhook.webhooks(1).url must equalTo("http://example2.com/anothercallback")
+      webhookList.webhooks(1).accountId must equalTo("acc_000091yf79yMwNaZHhHGzp")
+      webhookList.webhooks(1).id must equalTo("webhook_000091yhhzvJSxLYGAceC9")
+      webhookList.webhooks(1).url must equalTo("http://example2.com/anothercallback")
     }
 
     "Convert to json" in {
-      val listWebhook = ListWebhooks(Seq(
+      val webhookList = WebhookList(Seq(
         Webhook("acc_000091yf79yMwNaZHhHGzp", "webhook_000091yhhOmrXQaVZ1Irsv", "http://example.com/callback"),
         Webhook("acc_000091yf79yMwNaZHhHGzp", "webhook_000091yhhzvJSxLYGAceC9", "http://example2.com/anothercallback")
       ))
 
-      listWebhook.toJson() must equalTo(ExampleJson.listWebhookJson)
+      webhookList.toJson() must equalTo(ExampleJson.webhookListJson)
     }
   }
 
