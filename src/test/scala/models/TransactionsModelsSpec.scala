@@ -73,7 +73,8 @@ class TransactionsModelsSpec extends Specification {
         "Salmon sandwich 🍞",
         false,
         "2015-08-23T12:20:18Z",
-        "eating_out")
+        "eating_out",
+        None)
 
       val singleTransaction = SingleTransaction(transaction)
 
@@ -130,7 +131,8 @@ class TransactionsModelsSpec extends Specification {
             "Salmon sandwich 🍞",
             false,
             "2015-08-23T12:20:18Z",
-            "eating_out"),
+            "eating_out",
+            None),
           ExpandedTransaction(
             12334,
             -679,
@@ -143,7 +145,8 @@ class TransactionsModelsSpec extends Specification {
             "",
             false,
             "2015-08-24T16:15:03Z",
-            "eating_out")))
+            "eating_out",
+            None)))
 
       transactionList.toJson() must equalTo(ExampleJson.transactionListJson)
     }
@@ -183,7 +186,8 @@ class TransactionsModelsSpec extends Specification {
         "",
         false,
         "2015-08-24T16:15:03Z",
-        "eating_out"
+        "eating_out",
+        None
       ))
 
       annotateTransaction.toJson() must equalTo(ExampleJson.annotateTransactionJson)
