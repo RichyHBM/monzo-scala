@@ -15,7 +15,8 @@ case class ExpandedTransaction(accountBalance: Long,
                                notes: String,
                                isLoad: Boolean,
                                settled: String,
-                               category: String) extends JsonModel {
+                               category: String,
+                               declinedReason: Option[String]) extends JsonModel {
 
   override def toJson(): String = Json.stringify(Json.toJson(this))
 }
@@ -35,7 +36,8 @@ object ExpandedTransaction {
       (JsPath \ "notes").read[String] and
       (JsPath \ "is_load").read[Boolean] and
       (JsPath \ "settled").read[String] and
-      (JsPath \ "category").read[String]
+      (JsPath \ "category").read[String] and
+      (JsPath \ "decline_reason").readNullable[String]
     ) (ExpandedTransaction.apply _)
 
   implicit val writes: Writes[ExpandedTransaction] = (
@@ -50,6 +52,7 @@ object ExpandedTransaction {
       (JsPath \ "notes").write[String] and
       (JsPath \ "is_load").write[Boolean] and
       (JsPath \ "settled").write[String] and
-      (JsPath \ "category").write[String]
+      (JsPath \ "category").write[String] and
+      (JsPath \ "decline_reason").writeNullable[String]
     ) (unlift(ExpandedTransaction.unapply))
 }
