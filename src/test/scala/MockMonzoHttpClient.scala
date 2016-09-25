@@ -1,10 +1,10 @@
+
 import models.ExampleJson
 import monzo_scala.Endpoints
 import monzo_scala.Enums.Methods
 import monzo_scala.http.HttpClient
 
 import scala.concurrent.Future
-import scala.util.matching.Regex
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class MockMonzoHttpClient() extends HttpClient {
@@ -14,26 +14,25 @@ case class MockMonzoHttpClient() extends HttpClient {
                            form: Map[String, String]): Future[String] = {
 
     Future {
-
-      val balanceUrlRegex: Regex = (Endpoints.balance + "?account_id=.+").r
-      val transactionUrlRegex: Regex = Endpoints.transaction(".+").r
-      val transactionsUrlRegex: Regex = (Endpoints.listTransactions + "?account_id=.+").r
-      val annotateTransactionUrlRegex: Regex = Endpoints.annotateTransaction(".+").r
-      val listWebhooksUrlRegex: Regex =  (Endpoints.registerWebhook + "?account_id=.+").r
-      val deleteWebhookUrlRegex: Regex = Endpoints.deleteWebhook(".+").r
+      val balanceUrl = Endpoints.balance + "?account_id="
+      val transactionUrl = Endpoints.transaction("") + "?expand[]==merchant"
+      val transactionsUrl = Endpoints.listTransactions + "?account_id=" + "&expand[]==merchant"
+      val annotateTransactionUrl = Endpoints.annotateTransaction("") + "?expand[]==merchant"
+      val listWebhooksUrl =  Endpoints.registerWebhook + "?account_id="
+      val deleteWebhookUrl = Endpoints.deleteWebhook("")
 
       (method, url) match {
         case (Methods.Get, Endpoints.whoami) => ExampleJson.whoAmIJson
         case (Methods.Post, Endpoints.refreshToken) => ExampleJson.accessJson
         case (Methods.Get, Endpoints.listAccounts) => ExampleJson.accountsJson
-        case (Methods.Get, balanceUrlRegex()) => ExampleJson.balanceJson
-        case (Methods.Get, transactionUrlRegex()) => ExampleJson.singleTransactionJson
-        case (Methods.Get, transactionsUrlRegex()) => ExampleJson.transactionListJson
-        case (Methods.Patch, annotateTransactionUrlRegex()) => ExampleJson.annotateTransactionJson
+        case (Methods.Get, s) if balanceUrl.equalsIgnoreCase(s) => ExampleJson.balanceJson
+        case (Methods.Get, s) if transactionUrl.equalsIgnoreCase(s) => ExampleJson.singleTransactionJson
+        case (Methods.Get, s) if transactionsUrl.equalsIgnoreCase(s) => ExampleJson.transactionListJson
+        case (Methods.Patch, s) if annotateTransactionUrl.equalsIgnoreCase(s) => ExampleJson.annotateTransactionJson
         case (Methods.Post, Endpoints.createFeedItem) => ExampleJson.feedJson
         case (Methods.Post, Endpoints.registerWebhook) => ExampleJson.registerWebhookJson
-        case (Methods.Get, listWebhooksUrlRegex()) => ExampleJson.webhookListJson
-        case (Methods.Delete, deleteWebhookUrlRegex()) => ExampleJson.deleteWebhookJson
+        case (Methods.Get, s) if listWebhooksUrl.equalsIgnoreCase(s) => ExampleJson.webhookListJson
+        case (Methods.Delete, s) if deleteWebhookUrl.equalsIgnoreCase(s) => ExampleJson.deleteWebhookJson
         case (Methods.Post, Endpoints.uploadAttachment) => ExampleJson.uploadAttachmentJson
         case (Methods.Post, Endpoints.registerAttachment) => ExampleJson.registerAttachmentJson
         case (Methods.Post, Endpoints.deregisterAttachment) => ExampleJson.deregisterAttachmentJson
