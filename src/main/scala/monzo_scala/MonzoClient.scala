@@ -189,4 +189,18 @@ object MonzoClient {
       )
     ).map(s => Access.fromJson(s))
   }
+
+  def exchangeAuthorizationCode(clientId: String, clientSecret: String, redirectURL: String, authCode: String): Future[Access] = {
+    httpClient.makeRequest(Enums.Methods.Post,
+      Endpoints.exchangeAuthCode,
+      Map[String, String](),
+      Map(
+        "grant_type" -> "authorization_code",
+        "client_id" -> clientId,
+        "client_secret" -> clientSecret,
+        "redirect_uri" -> redirectURL,
+        "code" -> authCode
+      )
+    ).map(s => Access.fromJson(s))
+  }
 }

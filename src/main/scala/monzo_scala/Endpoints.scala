@@ -2,6 +2,7 @@ package monzo_scala
 
 object Endpoints {
   val ApiEndpoint = "https://api.monzo.com"
+  val exchangeAuthCode = ApiEndpoint + "/oauth2/token"
   val refreshToken = ApiEndpoint + "/oauth2/token"
   val whoami = ApiEndpoint + "/ping/whoami"
   val listAccounts = ApiEndpoint + "/accounts"
