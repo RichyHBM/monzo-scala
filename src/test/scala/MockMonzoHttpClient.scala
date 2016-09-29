@@ -16,8 +16,8 @@ case class MockMonzoHttpClient() extends HttpClient {
     Future {
       val balanceUrl = Endpoints.balance + "?account_id="
       val transactionUrl = Endpoints.transaction("") + "?expand[]==merchant"
-      val transactionsUrl = Endpoints.listTransactions + "?account_id=" + "&expand[]==merchant"
-      val annotateTransactionUrl = Endpoints.annotateTransaction("") + "?expand[]==merchant"
+      val transactionsUrl = Endpoints.listTransactions + "?account_id="
+      val annotateTransactionUrl = Endpoints.annotateTransaction("")
       val listWebhooksUrl =  Endpoints.registerWebhook + "?account_id="
       val deleteWebhookUrl = Endpoints.deleteWebhook("")
 
@@ -26,9 +26,9 @@ case class MockMonzoHttpClient() extends HttpClient {
         case (Methods.Post, Endpoints.refreshToken) => ExampleJson.accessJson
         case (Methods.Get, Endpoints.listAccounts) => ExampleJson.accountsJson
         case (Methods.Get, s) if balanceUrl.equalsIgnoreCase(s) => ExampleJson.balanceJson
-        case (Methods.Get, s) if transactionUrl.equalsIgnoreCase(s) => ExampleJson.singleTransactionJson
-        case (Methods.Get, s) if transactionsUrl.equalsIgnoreCase(s) => ExampleJson.transactionListJson
-        case (Methods.Patch, s) if annotateTransactionUrl.equalsIgnoreCase(s) => ExampleJson.annotateTransactionJson
+        case (Methods.Get, s) if s.contains(transactionUrl) => ExampleJson.singleTransactionJson
+        case (Methods.Get, s) if s.contains(transactionsUrl) => ExampleJson.transactionListJson
+        case (Methods.Patch, s) if s.contains(annotateTransactionUrl) => ExampleJson.annotateTransactionJson
         case (Methods.Post, Endpoints.createFeedItem) => ExampleJson.feedJson
         case (Methods.Post, Endpoints.registerWebhook) => ExampleJson.registerWebhookJson
         case (Methods.Get, s) if listWebhooksUrl.equalsIgnoreCase(s) => ExampleJson.webhookListJson

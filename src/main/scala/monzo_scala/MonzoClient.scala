@@ -42,15 +42,17 @@ case class MonzoClient(accessToken: String, httpClient: HttpClient) extends Trai
     ).map(s => Balance.fromJson(s))
   }
 
-  override def getTransaction(transactionId: String): Future[SingleTransaction] = {
+  override def getTransaction(transactionId: String, expandMerchants: Boolean): Future[SingleTransaction] = {
+    val expand = if(expandMerchants) "?expand[]==merchant" else ""
+
     httpClient.makeRequest(Enums.Methods.Get,
-      Endpoints.transaction(transactionId) + "?expand[]==merchant",
+      Endpoints.transaction(transactionId) + expand,
       headers,
       Map()
     ).map(s => SingleTransaction.fromJson(s))
   }
 
-  override def listTransactions(accountId: String, limit: Option[Int], since: Option[String], before: Option[String]): Future[TransactionList] = {
+  override def listTransactions(accountId: String, expandMerchants: Boolean, limit: Option[Int], since: Option[String], before: Option[String]): Future[TransactionList] = {
 
     val limitQuery = limit match {
       case Some(i) => s"&limit=$i"
@@ -67,7 +69,8 @@ case class MonzoClient(accessToken: String, httpClient: HttpClient) extends Trai
       case None => ""
     }
 
-    val urlQuery = s"?account_id=$accountId" + limitQuery + sinceQuery + beforeQuery + "&expand[]==merchant"
+    val expand = if(expandMerchants) "&expand[]==merchant" else ""
+    val urlQuery = s"?account_id=$accountId" + limitQuery + sinceQuery + beforeQuery + expand
 
     httpClient.makeRequest(Enums.Methods.Get,
       Endpoints.listTransactions + urlQuery,
@@ -76,11 +79,12 @@ case class MonzoClient(accessToken: String, httpClient: HttpClient) extends Trai
     ).map(s => TransactionList.fromJson(s))
   }
 
-  override def annotateTransaction(transactionId: String, metadata: Map[String, String]): Future[AnnotateTransaction] = {
+  override def annotateTransaction(transactionId: String, expandMerchants: Boolean, metadata: Map[String, String]): Future[AnnotateTransaction] = {
     val metadataFormat = metadata.map(meta => s"metadata[${meta._1}]" -> meta._2)
+    val expand = if(expandMerchants) "?expand[]==merchant" else ""
 
     httpClient.makeRequest(Enums.Methods.Patch,
-      Endpoints.annotateTransaction(transactionId)  + "?expand[]==merchant",
+      Endpoints.annotateTransaction(transactionId)  + expand,
       headers,
       metadataFormat
     ).map(s => AnnotateTransaction.fromJson(s))

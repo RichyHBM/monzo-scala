@@ -2,7 +2,7 @@ package monzo_scala.models.transactions
 
 import monzo_scala.models.JsonModel
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsPath, Json, Reads, Writes}
+import play.api.libs.json._
 
 case class ExpandedTransaction(accountBalance: Long,
                                amount: Long,
@@ -10,7 +10,7 @@ case class ExpandedTransaction(accountBalance: Long,
                                currency: String,
                                description: String,
                                id: String,
-                               merchant: Merchant,
+                               merchant: Option[Merchant],
                                metadata: Map[String, String],
                                notes: String,
                                isLoad: Boolean,
@@ -31,7 +31,7 @@ object ExpandedTransaction {
       (JsPath \ "currency").read[String] and
       (JsPath \ "description").read[String] and
       (JsPath \ "id").read[String] and
-      (JsPath \ "merchant").read[Merchant] and
+      (JsPath \ "merchant").read[JsValue].map(_.asOpt[Merchant]) and
       (JsPath \ "metadata").read[Map[String, String]] and
       (JsPath \ "notes").read[String] and
       (JsPath \ "is_load").read[Boolean] and
@@ -47,7 +47,7 @@ object ExpandedTransaction {
       (JsPath \ "currency").write[String] and
       (JsPath \ "description").write[String] and
       (JsPath \ "id").write[String] and
-      (JsPath \ "merchant").write[Merchant] and
+      (JsPath \ "merchant").writeNullable[Merchant] and
       (JsPath \ "metadata").write[Map[String, String]] and
       (JsPath \ "notes").write[String] and
       (JsPath \ "is_load").write[Boolean] and

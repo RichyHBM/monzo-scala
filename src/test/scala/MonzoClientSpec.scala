@@ -56,7 +56,7 @@ class MonzoClientSpec extends Specification {
     }
 
     "Get a transaction" in {
-      val singleTransaction = Await.result(monzoClient.getTransaction(""), 5.seconds)
+      val singleTransaction = Await.result(monzoClient.getTransaction("", true), 5.seconds)
 
       singleTransaction mustNotEqual null
       singleTransaction.transaction mustNotEqual null
@@ -68,23 +68,23 @@ class MonzoClientSpec extends Specification {
       singleTransaction.transaction.description must equalTo("THE DE BEAUVOIR DELI C LONDON        GBR")
       singleTransaction.transaction.id must equalTo("tx_00008zIcpb1TB4yeIFXMzx")
 
-      singleTransaction.transaction.merchant mustNotEqual null
-      singleTransaction.transaction.merchant.address mustNotEqual null
-      singleTransaction.transaction.merchant.address.address must equalTo("98 Southgate Road")
-      singleTransaction.transaction.merchant.address.city must equalTo("London")
-      singleTransaction.transaction.merchant.address.country must equalTo("GB")
-      singleTransaction.transaction.merchant.address.latitude must equalTo(51.54151)
-      singleTransaction.transaction.merchant.address.longitude must equalTo(-0.08482400000002599)
-      singleTransaction.transaction.merchant.address.postCode must equalTo("N1 3JD")
-      singleTransaction.transaction.merchant.address.region must equalTo("Greater London")
+      singleTransaction.transaction.merchant mustNotEqual None
+      singleTransaction.transaction.merchant.get.address mustNotEqual null
+      singleTransaction.transaction.merchant.get.address.address must equalTo("98 Southgate Road")
+      singleTransaction.transaction.merchant.get.address.city must equalTo("London")
+      singleTransaction.transaction.merchant.get.address.country must equalTo("GB")
+      singleTransaction.transaction.merchant.get.address.latitude must equalTo(51.54151)
+      singleTransaction.transaction.merchant.get.address.longitude must equalTo(-0.08482400000002599)
+      singleTransaction.transaction.merchant.get.address.postCode must equalTo("N1 3JD")
+      singleTransaction.transaction.merchant.get.address.region must equalTo("Greater London")
 
-      singleTransaction.transaction.merchant.created must equalTo("2015-08-22T12:20:18Z")
-      singleTransaction.transaction.merchant.groupId must equalTo("grp_00008zIcpbBOaAr7TTP3sv")
-      singleTransaction.transaction.merchant.id must equalTo("merch_00008zIcpbAKe8shBxXUtl")
-      singleTransaction.transaction.merchant.logo must equalTo("https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg")
-      singleTransaction.transaction.merchant.emoji must equalTo("🍞")
-      singleTransaction.transaction.merchant.name must equalTo("The De Beauvoir Deli Co.")
-      singleTransaction.transaction.merchant.category must equalTo("eating_out")
+      singleTransaction.transaction.merchant.get.created must equalTo("2015-08-22T12:20:18Z")
+      singleTransaction.transaction.merchant.get.groupId must equalTo("grp_00008zIcpbBOaAr7TTP3sv")
+      singleTransaction.transaction.merchant.get.id must equalTo("merch_00008zIcpbAKe8shBxXUtl")
+      singleTransaction.transaction.merchant.get.logo must equalTo("https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg")
+      singleTransaction.transaction.merchant.get.emoji must equalTo("🍞")
+      singleTransaction.transaction.merchant.get.name must equalTo("The De Beauvoir Deli Co.")
+      singleTransaction.transaction.merchant.get.category must equalTo("eating_out")
 
       singleTransaction.transaction.metadata must equalTo(Map[String, String]())
       singleTransaction.transaction.notes must equalTo("Salmon sandwich 🍞")
@@ -94,7 +94,7 @@ class MonzoClientSpec extends Specification {
     }
 
     "List transactions" in {
-      val transactionList = Await.result(monzoClient.listTransactions("", None, None, None), 5.seconds)
+      val transactionList = Await.result(monzoClient.listTransactions("", false, None, None, None), 5.seconds)
 
       transactionList mustNotEqual null
       transactionList.transactions.length must equalTo(2)
@@ -105,7 +105,7 @@ class MonzoClientSpec extends Specification {
       transactionList.transactions.head.currency must equalTo("GBP")
       transactionList.transactions.head.description must equalTo("THE DE BEAUVOIR DELI C LONDON        GBR")
       transactionList.transactions.head.id must equalTo("tx_00008zIcpb1TB4yeIFXMzx")
-      transactionList.transactions.head.merchant must equalTo(merchant)
+      transactionList.transactions.head.merchant mustEqual None
       transactionList.transactions.head.metadata must equalTo(Map[String, String]())
       transactionList.transactions.head.notes must equalTo("Salmon sandwich 🍞")
       transactionList.transactions.head.isLoad must equalTo(false)
@@ -118,7 +118,7 @@ class MonzoClientSpec extends Specification {
       transactionList.transactions(1).currency must equalTo("GBP")
       transactionList.transactions(1).description must equalTo("VUE BSL LTD            ISLINGTON     GBR")
       transactionList.transactions(1).id must equalTo("tx_00008zL2INM3xZ41THuRF3")
-      transactionList.transactions(1).merchant must equalTo(merchant)
+      transactionList.transactions(1).merchant mustEqual None
       transactionList.transactions(1).metadata must equalTo(Map[String, String]())
       transactionList.transactions(1).notes must equalTo("")
       transactionList.transactions(1).isLoad must equalTo(false)
@@ -127,7 +127,7 @@ class MonzoClientSpec extends Specification {
     }
 
     "Annotate a transaction" in {
-      val annotateTransaction = Await.result(monzoClient.annotateTransaction("", Map()), 5.seconds)
+      val annotateTransaction = Await.result(monzoClient.annotateTransaction("", false, Map()), 5.seconds)
 
       annotateTransaction mustNotEqual null
       annotateTransaction.transaction mustNotEqual null
@@ -138,7 +138,7 @@ class MonzoClientSpec extends Specification {
       annotateTransaction.transaction.currency must equalTo("GBP")
       annotateTransaction.transaction.description must equalTo("VUE BSL LTD            ISLINGTON     GBR")
       annotateTransaction.transaction.id must equalTo("tx_00008zL2INM3xZ41THuRF3")
-      annotateTransaction.transaction.merchant must equalTo(merchant)
+      annotateTransaction.transaction.merchant mustEqual None
       annotateTransaction.transaction.metadata must equalTo(Map[String, String]("foo" -> "bar"))
       annotateTransaction.transaction.notes must equalTo("")
       annotateTransaction.transaction.isLoad must equalTo(false)

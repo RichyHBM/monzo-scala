@@ -95,6 +95,7 @@ object ExampleJson {
       |    }
       |}""".stripMargin))
 
+
   val transactionListJson = Json.stringify(Json.parse(
     """{
       |    "transactions": [
@@ -105,24 +106,7 @@ object ExampleJson {
       |            "currency": "GBP",
       |            "description": "THE DE BEAUVOIR DELI C LONDON        GBR",
       |            "id": "tx_00008zIcpb1TB4yeIFXMzx",
-      |            "merchant": {
-      |                "address": {
-      |                    "address": "98 Southgate Road",
-      |                    "city": "London",
-      |                    "country": "GB",
-      |                    "latitude": 51.54151,
-      |                    "longitude": -0.08482400000002599,
-      |                    "postcode": "N1 3JD",
-      |                    "region": "Greater London"
-      |                },
-      |                "created": "2015-08-22T12:20:18Z",
-      |                "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |                "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |                "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |                "emoji": "🍞",
-      |                "name": "The De Beauvoir Deli Co.",
-      |                "category": "eating_out"
-      |            },
+      |            "merchant": "merch_00008zIcpbAKe8shBxXUtl",
       |            "metadata": {},
       |            "notes": "Salmon sandwich 🍞",
       |            "is_load": false,
@@ -136,24 +120,7 @@ object ExampleJson {
       |            "currency": "GBP",
       |            "description": "VUE BSL LTD            ISLINGTON     GBR",
       |            "id": "tx_00008zL2INM3xZ41THuRF3",
-      |            "merchant": {
-      |                "address": {
-      |                    "address": "98 Southgate Road",
-      |                    "city": "London",
-      |                    "country": "GB",
-      |                    "latitude": 51.54151,
-      |                    "longitude": -0.08482400000002599,
-      |                    "postcode": "N1 3JD",
-      |                    "region": "Greater London"
-      |                },
-      |                "created": "2015-08-22T12:20:18Z",
-      |                "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |                "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |                "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |                "emoji": "🍞",
-      |                "name": "The De Beauvoir Deli Co.",
-      |                "category": "eating_out"
-      |            },
+      |            "merchant": "merch_00008z6uFVhVBcaZzSQwCX",
       |            "metadata": {},
       |            "notes": "",
       |            "is_load": false,
@@ -172,24 +139,7 @@ object ExampleJson {
       |        "currency": "GBP",
       |        "description": "VUE BSL LTD            ISLINGTON     GBR",
       |        "id": "tx_00008zL2INM3xZ41THuRF3",
-      |        "merchant": {
-      |                "address": {
-      |                    "address": "98 Southgate Road",
-      |                    "city": "London",
-      |                    "country": "GB",
-      |                    "latitude": 51.54151,
-      |                    "longitude": -0.08482400000002599,
-      |                    "postcode": "N1 3JD",
-      |                    "region": "Greater London"
-      |                },
-      |                "created": "2015-08-22T12:20:18Z",
-      |                "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
-      |                "id": "merch_00008zIcpbAKe8shBxXUtl",
-      |                "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
-      |                "emoji": "🍞",
-      |                "name": "The De Beauvoir Deli Co.",
-      |                "category": "eating_out"
-      |            },
+      |        "merchant": "merch_00008z6uFVhVBcaZzSQwCX",
       |        "metadata": {
       |            "foo": "bar"
       |        },

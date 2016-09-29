@@ -26,11 +26,11 @@ object Traits {
   }
 
   trait ITransactions {
-    def getTransaction(transactionId: String): Future[SingleTransaction]
+    def getTransaction(transactionId: String, expandMerchants: Boolean): Future[SingleTransaction]
 
-    def listTransactions(accountId: String, limit: Option[Int], since: Option[String], before: Option[String]): Future[TransactionList]
+    def listTransactions(accountId: String, expandMerchants: Boolean, limit: Option[Int], since: Option[String], before: Option[String]): Future[TransactionList]
 
-    def annotateTransaction(transactionId: String, metadata: Map[String, String]): Future[AnnotateTransaction]
+    def annotateTransaction(transactionId: String, expandMerchants: Boolean, metadata: Map[String, String]): Future[AnnotateTransaction]
   }
 
   trait IFeedItems {
